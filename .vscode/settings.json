@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "print": "cpp",
+        "filesystem": "cpp",
+        "xstring": "cpp",
+        "*.m": "cpp",
+        "string": "cpp",
+        "xlocinfo": "cpp",
+        "ostream": "cpp"
+    }
+}
