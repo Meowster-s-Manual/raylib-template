@@ -28,8 +28,6 @@ function(fetch_git_dependency name url tag subdir compile_options)
         target_compile_options(${name} PUBLIC -w) # Suppress warnings for external dependencies
     elseif (${compile_options} STREQUAL "INTERFACE")
         target_compile_options(${name} INTERFACE -w) # Suppress warnings for external dependencies
-    elseif (${compile_options} STREQUAL "NONE")
-        message(No compile options specified for ${name}. Defaulting to not compile with warnings.)
     endif()
 endfunction()
 
@@ -146,10 +144,3 @@ endif()
 
 # Set common compile options
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-
-# Ensure that hot-reload is enabled for VS
-if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /ZI")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /SAFESEH:NO")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO")
-endif()
