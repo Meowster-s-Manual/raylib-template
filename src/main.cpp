@@ -60,10 +60,14 @@ int main(){
 	}
 #pragma endregion
 
+    std::println("working directory: {}", GetWorkingDirectory());
+    std::println("GetApplicationDirectory: {}", GetApplicationDirectory());
+    std::println("asset path: {}", ASSETS_PATH);
+
     while (!WindowShouldClose())
     {
-        float dt = GetFrameTime();
-        std::println("Delta time: {}", dt);
+        // float dt = GetFrameTime();
+        // std::println("Delta time: {}", dt);
 
         // Update
         //----------------------------------------------------------------------------------
