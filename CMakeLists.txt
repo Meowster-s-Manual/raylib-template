@@ -72,42 +72,6 @@ fetch_git_dependency(
     "PRIVATE"
 )
 
-# FetchContent directly due to ImGui and rlImGui not being CMake projects
-# Add Dear-ImGui
-FetchContent_Populate(
-    imgui
-    GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG docking
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build/imgui
-)
-add_library(imgui)
-target_sources(imgui PRIVATE 
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/imgui.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/imgui_demo.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/imgui_draw.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/imgui_tables.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/imgui_widgets.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/backends/imgui_impl_glfw.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui/backends/imgui_impl_opengl3.cpp"
-)
-target_include_directories(imgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/build/imgui")
-target_link_libraries(imgui PUBLIC raylib_static glfw)
-
-# Add rlImGui
-FetchContent_Populate(
-    rlimgui
-    GIT_REPOSITORY https://github.com/raylib-extras/rlImGui.git
-    GIT_TAG main
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build/rlImGui
-)
-add_library(rlimgui)
-target_sources(rlimgui PRIVATE 
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/rlImGui/rlImGui.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/build/rlImGui/rlImGui.h"
-)
-target_include_directories(rlimgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/build/rlImGui")
-target_link_libraries(rlimgui PUBLIC imgui raylib_static)
-
 ###################################################################################
 # Executable setup
 ###################################################################################
@@ -126,8 +90,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 target_link_libraries(${PROJECT_NAME} PRIVATE raygui)
 target_link_libraries(${PROJECT_NAME} PRIVATE box2d)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt)
-target_link_libraries(${PROJECT_NAME} PRIVATE imgui)
-target_link_libraries(${PROJECT_NAME} PRIVATE rlimgui)
 
 ###################################################################################
 # Build Settings

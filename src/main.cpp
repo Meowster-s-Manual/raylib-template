@@ -4,12 +4,6 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
-#pragma region imgui
-#include <imgui.h>
-#include <rlImGui.h>
-// #include <imguiThemes.h>
-#pragma endregion
-
 #include <string>
 
 // Temp Global variables
@@ -34,32 +28,6 @@ int main(){
 
     bool showMessageBox = false;
 
-#pragma region imgui
-	rlImGuiSetup(true);
-
-	//you can use whatever imgui theme you like!
-	ImGui::StyleColorsDark();
-	//imguiThemes::yellow();
-	//imguiThemes::gray();
-	//imguiThemes::green();
-	//imguiThemes::red();
-	//imguiThemes::embraceTheDarkness();
-
-
-	ImGuiIO &io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.FontGlobalScale = 2;
-
-	ImGuiStyle &style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		//style.WindowRounding = 0.0f;
-		style.Colors[ImGuiCol_WindowBg].w = 0.5f;
-		//style.Colors[ImGuiCol_DockingEmptyBg].w = 0.f;
-	}
-#pragma endregion
-
     std::println("working directory: {}", GetWorkingDirectory());
     std::println("GetApplicationDirectory: {}", GetApplicationDirectory());
     std::println("asset path: {}", ASSETS_PATH);
@@ -80,16 +48,6 @@ int main(){
         BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 
-    #pragma region imgui
-		rlImGuiBegin();
-        bool open = true;
-        ImGui::ShowDemoWindow(&open);
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, {});
-		ImGui::PushStyleColor(ImGuiCol_DockingEmptyBg, {});
-		ImGui::DockSpaceOverViewport();
-		ImGui::PopStyleColor(2);
-	#pragma endregion
-
         if (GuiButton((Rectangle){ 24, 24, 120, 30 }, "#191#Show Message")) showMessageBox = true;
 
         if (showMessageBox)
@@ -100,22 +58,8 @@ int main(){
             if (result >= 0) showMessageBox = false;
         }
 
-    #pragma region imgui
-		rlImGuiEnd();
-
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-		}
-	#pragma endregion
-
         EndDrawing();
     }
-
-#pragma region imgui
-	rlImGuiShutdown();
-#pragma endregion
 
     UnloadRenderTexture(renderTexture);
     CloseWindow();
