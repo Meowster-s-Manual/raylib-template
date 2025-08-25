@@ -52,6 +52,16 @@ fetch_git_dependency(
     "INTERFACE"
 )
 
+# Add rres
+set(BUILD_RRES_EXAMPLES OFF CACHE BOOL "" FORCE)
+fetch_git_dependency(
+    rres
+    https://github.com/raysan5/rres.git
+    1.2.0
+    "projects/CMake"
+    "INTERFACE"
+)
+
 # Add box2d
 set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "" FORCE)
 set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "" FORCE)
@@ -88,6 +98,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${SOURCE_INCLUDE})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 target_link_libraries(${PROJECT_NAME} PRIVATE raygui)
+target_link_libraries(${PROJECT_NAME} PRIVATE rres)
 target_link_libraries(${PROJECT_NAME} PRIVATE box2d)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt)
 
